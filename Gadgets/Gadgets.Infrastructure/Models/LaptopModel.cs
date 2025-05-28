@@ -14,6 +14,6 @@ public class LaptopModel : GadgetModel
     
     public bool HasTouchscreen { get; set; }
     
-    [ForeignKey(nameof(LaptopModel))]
+    [ForeignKey("ScreenId")]
     public ScreenModel ScreenModel { get; set; }
 }

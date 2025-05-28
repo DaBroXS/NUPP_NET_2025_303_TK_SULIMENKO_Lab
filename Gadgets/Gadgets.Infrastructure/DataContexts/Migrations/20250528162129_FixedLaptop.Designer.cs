@@ -4,6 +4,7 @@ using Gadgets.Infrastructure.DataContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gadgets.Infrastructure.DataContexts.Migrations
 {
     [DbContext(typeof(GadgetsContext))]
-    partial class GadgetsContextModelSnapshot : ModelSnapshot
+    [Migration("20250528162129_FixedLaptop")]
+    partial class FixedLaptop
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

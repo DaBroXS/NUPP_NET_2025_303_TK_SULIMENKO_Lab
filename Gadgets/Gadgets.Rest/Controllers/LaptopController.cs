@@ -1,5 +1,7 @@
 using Gadgets.Common.Contracts;
 using Gadgets.Infrastructure.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gadgets.Rest.Controllers;
@@ -51,6 +53,7 @@ public class LaptopController : ControllerBase
         }
     }
     
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IResult> Create(
         [FromBody] LaptopModel value,
@@ -75,6 +78,7 @@ public class LaptopController : ControllerBase
         }
     }
     
+    [Authorize(Roles = Roles.Admin)]
     [HttpPatch("{id:guid}")]
     public async Task<IResult> Update(
         [FromRoute] Guid id,
@@ -102,6 +106,7 @@ public class LaptopController : ControllerBase
         }
     }
     
+    [Authorize(Roles = Roles.Admin)]
     [HttpDelete("{id:guid}")]
     public async Task<IResult> Delete(
         [FromRoute] Guid id,
@@ -119,6 +124,33 @@ public class LaptopController : ControllerBase
             if (result)
                 return Results.Ok();
     
+            return Results.BadRequest();
+        }
+        catch (Exception ex)
+        {
+            return Results.Problem(
+                title: "Помилка при обробці запиту",
+                detail: ex.Message,
+                statusCode: StatusCodes.Status500InternalServerError
+            );
+        }
+    }
+    
+    [Authorize]
+    [HttpPost("/grant/{role}")]
+    public async Task<IResult> Grant(
+        [FromRoute] string role,
+        [FromServices] UserManager<IdentityUser> userManager)
+    {
+        try
+        {
+            var user = await userManager.GetUserAsync(User);
+            if (!await userManager.IsInRoleAsync(user, role))
+            {
+                await userManager.AddToRoleAsync(user, role);
+                return Results.Ok();
+            }
+            
             return Results.BadRequest();
         }
         catch (Exception ex)

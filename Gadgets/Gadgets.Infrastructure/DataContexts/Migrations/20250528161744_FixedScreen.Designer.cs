@@ -4,6 +4,7 @@ using Gadgets.Infrastructure.DataContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gadgets.Infrastructure.DataContexts.Migrations
 {
     [DbContext(typeof(GadgetsContext))]
-    partial class GadgetsContextModelSnapshot : ModelSnapshot
+    [Migration("20250528161744_FixedScreen")]
+    partial class FixedScreen
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,21 +39,21 @@ namespace Gadgets.Infrastructure.DataContexts.Migrations
                     b.Property<bool>("HasTouchscreen")
                         .HasColumnType("bit");
 
+                    b.Property<Guid>("LaptopModel")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
                     b.Property<int>("Ram")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ScreenId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<double>("ScreenSize")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ScreenId");
+                    b.HasIndex("LaptopModel");
 
                     b.ToTable("Laptops");
                 });
@@ -311,7 +314,7 @@ namespace Gadgets.Infrastructure.DataContexts.Migrations
                 {
                     b.HasOne("Gadgets.Infrastructure.Models.ScreenModel", "ScreenModel")
                         .WithMany("Laptops")
-                        .HasForeignKey("ScreenId")
+                        .HasForeignKey("LaptopModel")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

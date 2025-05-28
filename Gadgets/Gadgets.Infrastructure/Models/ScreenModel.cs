@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gadgets.Infrastructure.Models;
 
@@ -18,5 +19,6 @@ public class ScreenModel
     [StringLength(64)]
     public string PanelType { get; set; }
     
+    [InverseProperty(nameof(ScreenModel))]
     public ICollection<LaptopModel> Laptops { get; set; } = new Collection<LaptopModel>();
 }
