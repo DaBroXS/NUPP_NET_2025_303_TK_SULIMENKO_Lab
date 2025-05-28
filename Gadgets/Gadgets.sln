@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gadgets.Console", "Gadgets.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gadgets.Tests", "Gadgets.Tests\Gadgets.Tests.csproj", "{8452B1EE-65EE-4D88-8843-F6D409C9C17D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gadgets.Infrastructure", "Gadgets.Infrastructure\Gadgets.Infrastructure.csproj", "{008FE427-DDF7-4F13-BC25-155139CE7D2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{8452B1EE-65EE-4D88-8843-F6D409C9C17D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8452B1EE-65EE-4D88-8843-F6D409C9C17D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8452B1EE-65EE-4D88-8843-F6D409C9C17D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{008FE427-DDF7-4F13-BC25-155139CE7D2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{008FE427-DDF7-4F13-BC25-155139CE7D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{008FE427-DDF7-4F13-BC25-155139CE7D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{008FE427-DDF7-4F13-BC25-155139CE7D2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

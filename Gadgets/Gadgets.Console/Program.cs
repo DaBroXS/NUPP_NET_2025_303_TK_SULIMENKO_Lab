@@ -1,36 +1,47 @@
 ﻿using System;
 using Gadgets.Common.Entities;
-using Gadgets.Common.Extensions;
-using Gadgets.Common.Services;
-using Gadgets.Common.Services.Async;
+using Gadgets.Infrastructure.DataContexts;
+using Gadgets.Infrastructure.DataContexts.Extensions;
+using Gadgets.Infrastructure.Repositories;
+using Gadgets.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
 
 public class Program
 {
     static async Task Main()
     {
-        LaptopAsyncService service = new();
+        var options = new DbContextOptionsBuilder()
+            .UseSqlServer("Server=localhost\\SQLEXPRESS;Database=gadgets;Trusted_Connection=True;Encrypt=False;TrustServerCertificate=True;")
+            //.UseMongoDB("mongodb+srv://maks70393:fif6iY6Cw11Mf5bc@cluster0.vhnawve.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", "gadgets")
+            .Options;
         
-        Parallel.For(0, 10000, async void (i) =>
-        {
-            try
-            {
-                var laptop = new Laptop("Test", Random.Shared.Next(1000, 10000), 8, 15.6, true);
-                await service.CreateAsync(laptop);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        });
+        var context = new GadgetsContext(options);
 
-        var laptops = (await service.ReadAllAsync()).ToList();
+        var repository = new LaptopRepository(context);
+        var service = new LaptopDataService(repository);
         
-        Console.WriteLine(laptops.Count);
-        Console.WriteLine(laptops.Min(x => x.Price));
-        Console.WriteLine(laptops.Max(x => x.Price));
-        Console.WriteLine(laptops.Average(x => x.Price));
+        var laptop = new Laptop("Dell", 1200.99, 16, 15.6, true).ToModel();
+        laptop.Screen = new Screen(13.3, "1920x1080", "LED").ToModel();
         
-        await service.Save("laptops.json");
+        await service.CreateAsync(laptop);
+        
+        var found = await service.ReadAsync(laptop.Id);
+        
+        if (found != null)
+            Console.WriteLine("Ноутбук знайдено");
+        
+        var toUpdate = new Laptop("Dell", 2300.99, 8, 13, false).ToModel();
+        toUpdate.Id = laptop.Id;
+        
+        await service.UpdateAsync(toUpdate);
+        
+        Console.WriteLine("Всі ноутбуки: ");
+        foreach (var element in await service.ReadAllAsync())
+        {
+            element.FromModel().ShowInfo();
+        }
+        
+        await service.RemoveAsync(laptop);
     }
 
 }
