@@ -11,8 +11,8 @@ public class Program
     static async Task Main()
     {
         var options = new DbContextOptionsBuilder()
-            .UseSqlServer("Server=localhost\\SQLEXPRESS;Database=gadgets;Trusted_Connection=True;Encrypt=False;TrustServerCertificate=True;")
-            //.UseMongoDB("mongodb+srv://maks70393:fif6iY6Cw11Mf5bc@cluster0.vhnawve.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", "gadgets")
+            //.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=gadgets;Trusted_Connection=True;Encrypt=False;TrustServerCertificate=True;")
+            .UseMongoDB("mongodb+srv://user:0Password1@cluster0.f5yj0m3.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", "gadgets")
             .Options;
         
         var context = new GadgetsContext(options);
@@ -21,7 +21,7 @@ public class Program
         var service = new LaptopDataService(repository);
         
         var laptop = new Laptop("Dell", 1200.99, 16, 15.6, true).ToModel();
-        laptop.Screen = new Screen(13.3, "1920x1080", "LED").ToModel();
+        laptop.ScreenModel = new Screen(13.3, "1920x1080", "LED").ToModel();
         
         await service.CreateAsync(laptop);
         
@@ -33,7 +33,7 @@ public class Program
         var toUpdate = new Laptop("Dell", 2300.99, 8, 13, false).ToModel();
         toUpdate.Id = laptop.Id;
         
-        await service.UpdateAsync(toUpdate);
+        //await service.UpdateAsync(toUpdate);
         
         Console.WriteLine("Всі ноутбуки: ");
         foreach (var element in await service.ReadAllAsync())

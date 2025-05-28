@@ -4,9 +4,9 @@ namespace Gadgets.Infrastructure.DataContexts.Extensions;
 
 public static class EntitiesExtensions
 {
-    public static Laptop ToModel(this Gadgets.Common.Entities.Laptop entity)
+    public static LaptopModel ToModel(this Gadgets.Common.Entities.Laptop entity)
     {
-        return new Laptop()
+        return new LaptopModel()
         {
             Id = entity.Id,
             Brand = entity.Brand,
@@ -17,9 +17,9 @@ public static class EntitiesExtensions
         };
     }
     
-    public static Screen ToModel(this Gadgets.Common.Entities.Screen entity)
+    public static ScreenModel ToModel(this Gadgets.Common.Entities.Screen entity)
     {
-        return new Screen()
+        return new ScreenModel()
         {
             Id = entity.Id,
             PanelType = entity.PanelType,
@@ -28,9 +28,9 @@ public static class EntitiesExtensions
         };
     }
     
-    public static Smartphone ToModel(this Gadgets.Common.Entities.Smartphone entity)
+    public static SmartphoneModel ToModel(this Gadgets.Common.Entities.Smartphone entity)
     {
-        return new Smartphone()
+        return new SmartphoneModel()
         {
             Id = entity.Id,
             Brand = entity.Brand,
@@ -41,17 +41,17 @@ public static class EntitiesExtensions
         };
     }
     
-    public static Gadgets.Common.Entities.Laptop FromModel(this Laptop model)
+    public static Gadgets.Common.Entities.Laptop FromModel(this LaptopModel model)
     {
         return new Gadgets.Common.Entities.Laptop(model.Brand, model.Price, model.Ram, model.ScreenSize, model.HasTouchscreen);
     }
     
-    public static Gadgets.Common.Entities.Screen FromModel(this Screen model)
+    public static Gadgets.Common.Entities.Screen FromModel(this ScreenModel model)
     {
         return new Gadgets.Common.Entities.Screen(model.Size, model.Resolution, model.PanelType);
     }
     
-    public static Gadgets.Common.Entities.Smartphone FromModel(this Smartphone model)
+    public static Gadgets.Common.Entities.Smartphone FromModel(this SmartphoneModel model)
     {
         return new Gadgets.Common.Entities.Smartphone(model.Brand, model.Price, model.OperatingSystem, model.BatteryCapacity, model.CameraResolution);
     }

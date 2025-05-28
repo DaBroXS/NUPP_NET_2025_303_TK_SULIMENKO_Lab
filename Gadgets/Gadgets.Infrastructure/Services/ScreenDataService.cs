@@ -3,9 +3,9 @@ using Gadgets.Infrastructure.Models;
 
 namespace Gadgets.Infrastructure.Services;
 
-public class ScreenDataService : DataService<Screen>
+public class ScreenDataService : DataService<ScreenModel>
 {
-    public ScreenDataService(IRepository<Screen> repository) : base(repository)
+    public ScreenDataService(IRepository<ScreenModel> repository) : base(repository)
     {
     }
 }

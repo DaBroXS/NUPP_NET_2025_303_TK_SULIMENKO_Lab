@@ -1,0 +1,6 @@
+@Gadgets.Rest_HostAddress = http://localhost:5090
+
+GET {{Gadgets.Rest_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

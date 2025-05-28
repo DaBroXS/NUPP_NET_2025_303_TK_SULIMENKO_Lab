@@ -3,9 +3,9 @@ using Gadgets.Infrastructure.Models;
 
 namespace Gadgets.Infrastructure.Services;
 
-public class LaptopDataService : DataService<Laptop>
+public class LaptopDataService : DataService<LaptopModel>
 {
-    public LaptopDataService(IRepository<Laptop> repository) : base(repository)
+    public LaptopDataService(IRepository<LaptopModel> repository) : base(repository)
     {
     }
 }

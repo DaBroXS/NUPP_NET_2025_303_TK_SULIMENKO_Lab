@@ -4,23 +4,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gadgets.Infrastructure.Repositories;
 
-public class LaptopRepository : Repository<Laptop>
+public class LaptopRepository : Repository<LaptopModel>
 {
     public LaptopRepository(GadgetsContext context) : base(context)
     {
     }
 
-    public override async Task<Laptop> GetByIdAsync(Guid id)
+    public override async Task<LaptopModel> GetByIdAsync(Guid id)
     {
         return await Entries.FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public override async Task<IEnumerable<Laptop>> GetAllAsync()
+    public override async Task<IEnumerable<LaptopModel>> GetAllAsync()
     {
         return await Entries.ToListAsync();
     }
 
-    public override async Task<IEnumerable<Laptop>> GetAllAsync(int page, int amount)
+    public override async Task<IEnumerable<LaptopModel>> GetAllAsync(int page, int amount)
     {
         return await Entries
             .Skip(page * amount)
@@ -28,19 +28,19 @@ public class LaptopRepository : Repository<Laptop>
             .ToListAsync();
     }
 
-    public override async Task<bool> AddAsync(Laptop entity)
+    public override async Task<bool> AddAsync(LaptopModel entity)
     {
         Entries.Add(entity);
         return await Context.SaveChangesAsync() > 0;
     }
 
-    public override async Task<bool> Update(Laptop entity)
+    public override async Task<bool> Update(LaptopModel entity)
     {
         Entries.Update(entity);
         return await Context.SaveChangesAsync() > 0;
     }
 
-    public override async Task<bool> Delete(Laptop entity)
+    public override async Task<bool> Delete(LaptopModel entity)
     {
         Entries.Remove(entity);
         return await Context.SaveChangesAsync() > 0;
